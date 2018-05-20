@@ -18,9 +18,8 @@ class HtmlOutputer(object):
 
     def output_html(self):
 
-
         # 连接数据库
-        connect = pymysql.connect(host='localhost',port=3306,user='root',password='Zlk$$123456',charset='utf8mb4')
+        connect = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='root', charset='utf8mb4')
         try:
             with connect.cursor() as cursor:
                 db = "CREATE DATABASE IF NOT EXISTS baike"
@@ -38,7 +37,7 @@ class HtmlOutputer(object):
         finally:
             connect.close()
 
-        connect = pymysql.connect(host='localhost', port=3306, user='root', password='Zlk$$123456', charset='utf8mb4')
+        connect = pymysql.connect(host='localhost', port=3306, user='root', password='root', charset='utf8mb4')
         # 读取数据库
         try:
             with connect.cursor() as cursor:
