@@ -13,7 +13,6 @@ class SpiderMain(object):
 
     def craw(self, root_url):
 
-        # ------华丽的分割线------#
         # 添加新的url
         self.urls.add_new_url(root_url)
         # 当前的条数
