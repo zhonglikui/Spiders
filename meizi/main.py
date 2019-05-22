@@ -1,9 +1,8 @@
 import datetime
 import multiprocessing
 import time
-import urllib
-from multiprocessing import Pool, cpu_count
-from urllib import request
+import urllib.request
+from multiprocessing import Pool
 
 import chardet
 from bs4 import BeautifulSoup
@@ -15,7 +14,7 @@ def downloadImage(imageUrl):
     req.add_header("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)")
     req.add_header("Referer", "http://i.meizitu.net")
     f = open("%s.jpg" % str(time.time()), "wb")
-    f.write(request.urlopen(req).read())
+    f.write(urllib.request.urlopen(req).read())
     f.close()
 
 

@@ -1,5 +1,6 @@
 from datetime import datetime
 from multiprocessing import Pool, cpu_count
+import time
 
 from baike import url_manager, html_parser, html_downloader, html_outputer
 
@@ -19,20 +20,26 @@ class SpiderMain(object):
         count = 1
         self.task(count)
         count = count + 1
-
+        time.sleep(3)
         time1 = datetime.now()
         # 遍历所有的url
-        pool = Pool(cpu_count())
+        # pool = Pool(cpu_count())
+        #
+        # while self.urls.has_new_url():
+        #     pool.apply(func=self.task,args=(count,))
+        #     if count == 99:
+        #         break
+        #     count = count + 1
+        # pool.close()
+        # pool.join()
         while self.urls.has_new_url():
-            pool.apply_async(self.task, args=(count,))
+            self.task(count)
             if count == 999:
                 break
             count = count + 1
-        pool.close()
-        pool.join()
 
-        # 输出收集好的数据
-        # self.outputer.output_html()
+            # 输出收集好的数据
+        self.outputer.output_html()
         time2 = datetime.now()
         print("耗时 %s 秒" % (time2 - time1).seconds)  # 23-21
 
@@ -54,6 +61,6 @@ class SpiderMain(object):
 
 
 if __name__ == "__main__":
-    root_url = "http://baike.baidu.com/item/Python"
+    root_url = "https://baike.baidu.com/item/Python/407313"
     obj_spider = SpiderMain()
     obj_spider.craw(root_url)
