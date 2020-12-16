@@ -1,8 +1,7 @@
 from datetime import datetime
-from multiprocessing import Pool, cpu_count
 import time
 
-from baike import url_manager, html_parser, html_downloader, html_outputer
+from baike import url_manager, html_downloader, html_parser, html_outputer
 
 
 class SpiderMain(object):
@@ -34,7 +33,7 @@ class SpiderMain(object):
         # pool.join()
         while self.urls.has_new_url():
             self.task(count)
-            if count == 999:
+            if count == 99:
                 break
             count = count + 1
 

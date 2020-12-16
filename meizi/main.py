@@ -22,9 +22,6 @@ def getHtml(url):
     req = urllib.request.Request(url)
     req.add_header("User-Agent",
                    "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36")
-    req.add_header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-    req.add_header("Accept-Encoding", "gzip, deflate, sdch")
-    req.add_header("Accept-Language", "zh-CN,zh;q=0.8")
     data = urllib.request.urlopen(req).read()
     print(chardet.detect(data))
     return data.decode('GB2312', 'igonre')
