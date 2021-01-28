@@ -1,5 +1,7 @@
+from concurrent.futures.thread import ThreadPoolExecutor
 from datetime import datetime
 import time
+from urllib.parse import unquote
 
 from baike import url_manager, html_downloader, html_parser, html_outputer
 
@@ -16,27 +18,12 @@ class SpiderMain(object):
         # 添加新的url
         self.urls.add_new_url(root_url)
         # 当前的条数
-        count = 1
-        self.task(count)
-        count = count + 1
-        time.sleep(3)
+        self.task(0)
+        time.sleep(1)
         time1 = datetime.now()
-        # 遍历所有的url
-        # pool = Pool(cpu_count())
-        #
-        # while self.urls.has_new_url():
-        #     pool.apply(func=self.task,args=(count,))
-        #     if count == 99:
-        #         break
-        #     count = count + 1
-        # pool.close()
-        # pool.join()
-        while self.urls.has_new_url():
-            self.task(count)
-            if count == 99:
-                break
-            count = count + 1
-
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            for i in range(999):
+                executor.submit(self.task, i)
             # 输出收集好的数据
         self.outputer.output_html()
         time2 = datetime.now()
@@ -46,7 +33,7 @@ class SpiderMain(object):
         try:
             # 获取一条url
             new_url = self.urls.get_new_url()
-            print("%d : %s" % (count, new_url))
+            print("%d : %s" % (count, unquote(new_url)))
             # 下载网页
             html_cont = self.downloader.download(new_url)
             # 解析网页，得到新的url列表和数据
